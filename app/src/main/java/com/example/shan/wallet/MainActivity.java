@@ -8,6 +8,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.shan.wallet.data.model.SOAnswersResponse;
+import com.example.shan.wallet.data.model.remote.ApiUtils;
+import com.example.shan.wallet.data.model.remote.SOService;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class MainActivity extends AppCompatActivity {
 
     Button ButtonLogin;
@@ -27,6 +35,24 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "retrofit", Toast.LENGTH_SHORT).show();
+
+                SOService api = ApiUtils.getSOService();
+                Call<SOAnswersResponse> call = api.getAnswers();
+                call.enqueue(new Callback<SOAnswersResponse>() {
+                    @Override
+                    public void onResponse(Call<SOAnswersResponse> call, Response<SOAnswersResponse> response) {
+                        if (response.isSuccessful()){
+
+                            String name = response.body().getName().toString();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<SOAnswersResponse> call, Throwable t) {
+
+                    }
+                });
+
             }
         });
 

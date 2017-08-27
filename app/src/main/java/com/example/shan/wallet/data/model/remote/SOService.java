@@ -10,13 +10,16 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 import rx.Observable;
 
 public interface SOService {
 
-    @GET("user")
-    Observable<SOAnswersResponse> getAnswers();
+    @GET("user/1")
+    Call<SOAnswersResponse> getAnswers();
+
+
 
     //@GET("/answers?order=desc&sort=activity&site=stackoverflow")
     //Call<SOAnswersResponse> getAnswers(@Query("tagged") String tags);
