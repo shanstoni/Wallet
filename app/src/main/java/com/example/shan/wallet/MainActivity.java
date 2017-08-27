@@ -1,19 +1,18 @@
 package com.example.shan.wallet;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.shan.wallet.Models.IdModelClass;
 import com.example.shan.wallet.Models.LoginModelClass;
-import com.example.shan.wallet.Models.UserModelClass;
-import com.example.shan.wallet.data.model.remote.ApiUtils;
-import com.example.shan.wallet.data.model.remote.SOService;
+import com.example.shan.wallet.data.model.REST.ApiUtils;
+import com.example.shan.wallet.data.model.REST.iRetrofitClient;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     Button ButtonLogin;
     Button ButtonRegister;
 
+    SharedPreferences userId = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,49 +34,47 @@ public class MainActivity extends AppCompatActivity {
         final EditText nickname  = (EditText) findViewById(R.id.nicknameEditText);
         final EditText password = (EditText) findViewById(R.id.passwordEditText);
 
+        userId = PreferenceManager.getDefaultSharedPreferences(this);
+
         ButtonLogin = (Button) findViewById(R.id.buttonLogin);
         ButtonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "retrofit", Toast.LENGTH_SHORT).show();
 
-                SOService api = ApiUtils.getSOService();
+                iRetrofitClient api = ApiUtils.getSOService();
 
-                LoginModelClass user = new LoginModelClass("test","test");
+                LoginModelClass user = new LoginModelClass(nickname.getText().toString(),password.getText().toString());
 
-                Call<IdModelClass> call = api.logIn(user);
-                call.enqueue(new Callback<IdModelClass>() {
+                Call<Integer> call = api.logIn(user);
+                call.enqueue(new Callback<Integer>() {
                     @Override
-                    public void onResponse(Call<IdModelClass> call, Response<IdModelClass> response) {
-                        int id = response.body().getId();
+                    public void onResponse(Call<Integer> call, Response<Integer> response) {
+                        int answer = response.body();
+
+                        //SharedPreferences - przechowywanie userID otrzymanego z api
+                        SharedPreferences.Editor editor = userId.edit();
+                        editor.putInt("id", answer);
+                        editor.commit();
+
+
+                        //API zwraca id uzytkownika na ktorego sie zalogowalismy(id>0), jesli zwroci <0 to logowanie nieudane
+                        if(answer > 0){
+                            Intent intent = new Intent(MainActivity.this, LoggedActivity.class);
+                            startActivity(intent);
+                        }else if(answer == -1){
+                            Toast.makeText(getApplicationContext(), "Wrong username!", Toast.LENGTH_SHORT).show();
+                        }else if(answer == -2){
+                            Toast.makeText(getApplicationContext(), "Wrong password", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override
-                    public void onFailure(Call<IdModelClass> call, Throwable t) {
+                    public void onFailure(Call<Integer> call, Throwable t) {
 
-                        Log.e("test",call.toString());
-                        Log.e("test",t.toString());
+                        Toast.makeText(getApplicationContext(), "ERROR", Toast.LENGTH_SHORT).show();
 
                     }
                 });
-
-//                Call<UserModelClass> call = api.getUserByID();
-//                call.enqueue(new Callback<UserModelClass>() {
-//
-//                    @Override
-//                    public void onResponse(Call<UserModelClass> call, Response<UserModelClass> response) {
-//                        if (response.isSuccessful()){
-//
-//                            String name = response.body().getName().toString();
-//
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<UserModelClass> call, Throwable t) {
-//
-//                    }
-//                });
 
             }
         });

@@ -1,29 +1,28 @@
-package com.example.shan.wallet.data.model.remote;
+package com.example.shan.wallet.data.model.REST;
 
 /**
  * Created by shan on 26.08.2017.
  */
 
-import com.example.shan.wallet.Models.IdModelClass;
 import com.example.shan.wallet.Models.LoginModelClass;
 import com.example.shan.wallet.Models.UserModelClass;
 
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
-public interface SOService {
+public interface iRetrofitClient {
 
-    @GET("user/1")
-    Call<UserModelClass> getUserByID();
+    @GET("user/{id}")
+    Call<UserModelClass> getUserByID(@Path("id") int id);
 
+    @Headers("Content-Type: application/json")
     @POST("login")
-    Call<IdModelClass> logIn(@Body LoginModelClass user);
+    //@FormUrlEncoded
+    Call<Integer> logIn(@Body LoginModelClass user);
 
 
 
