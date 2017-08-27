@@ -3,12 +3,15 @@ package com.example.shan.wallet;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.shan.wallet.data.model.SOAnswersResponse;
+import com.example.shan.wallet.Models.IdModelClass;
+import com.example.shan.wallet.Models.LoginModelClass;
+import com.example.shan.wallet.Models.UserModelClass;
 import com.example.shan.wallet.data.model.remote.ApiUtils;
 import com.example.shan.wallet.data.model.remote.SOService;
 
@@ -37,21 +40,42 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "retrofit", Toast.LENGTH_SHORT).show();
 
                 SOService api = ApiUtils.getSOService();
-                Call<SOAnswersResponse> call = api.getAnswers();
-                call.enqueue(new Callback<SOAnswersResponse>() {
-                    @Override
-                    public void onResponse(Call<SOAnswersResponse> call, Response<SOAnswersResponse> response) {
-                        if (response.isSuccessful()){
 
-                            String name = response.body().getName().toString();
-                        }
+                LoginModelClass user = new LoginModelClass("test","test");
+
+                Call<IdModelClass> call = api.logIn(user);
+                call.enqueue(new Callback<IdModelClass>() {
+                    @Override
+                    public void onResponse(Call<IdModelClass> call, Response<IdModelClass> response) {
+                        int id = response.body().getId();
                     }
 
                     @Override
-                    public void onFailure(Call<SOAnswersResponse> call, Throwable t) {
+                    public void onFailure(Call<IdModelClass> call, Throwable t) {
+
+                        Log.e("test",call.toString());
+                        Log.e("test",t.toString());
 
                     }
                 });
+
+//                Call<UserModelClass> call = api.getUserByID();
+//                call.enqueue(new Callback<UserModelClass>() {
+//
+//                    @Override
+//                    public void onResponse(Call<UserModelClass> call, Response<UserModelClass> response) {
+//                        if (response.isSuccessful()){
+//
+//                            String name = response.body().getName().toString();
+//
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<UserModelClass> call, Throwable t) {
+//
+//                    }
+//                });
 
             }
         });
