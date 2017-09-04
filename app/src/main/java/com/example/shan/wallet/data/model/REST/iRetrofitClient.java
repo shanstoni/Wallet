@@ -13,16 +13,17 @@ import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import rx.Observable;
 
 public interface iRetrofitClient {
 
     @GET("user/{id}")
-    Call<UserModelClass> getUserByID(@Path("id") int id);
+    Observable<UserModelClass> getUserByID(@Path("id") int id);
 
     @Headers("Content-Type: application/json")
     @POST("login")
     //@FormUrlEncoded
-    Call<Integer> logIn(@Body LoginModelClass user);
+    Observable<Integer> logIn(@Body LoginModelClass user);
 
 
 

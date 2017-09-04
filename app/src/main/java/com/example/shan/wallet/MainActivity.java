@@ -11,12 +11,18 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.shan.wallet.Models.LoginModelClass;
+import com.example.shan.wallet.Models.UserModelClass;
 import com.example.shan.wallet.data.model.REST.ApiUtils;
 import com.example.shan.wallet.data.model.REST.iRetrofitClient;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import rx.Observable;
+import rx.Subscriber;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,38 +51,39 @@ public class MainActivity extends AppCompatActivity {
 
                 LoginModelClass user = new LoginModelClass(nickname.getText().toString(),password.getText().toString());
 
-                Call<Integer> call = api.logIn(user);
-                call.enqueue(new Callback<Integer>() {
-                    @Override
-                    public void onResponse(Call<Integer> call, Response<Integer> response) {
-                        int answer = response.body();
 
-                        //SharedPreferences - przechowywanie userID otrzymanego z api
-                        SharedPreferences.Editor editor = userId.edit();
-                        editor.putInt("id", answer);
-                        editor.commit();
+                final Subscription id = api.logIn(user).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Subscriber<Integer>() {
+                                       @Override
+                                       public void onCompleted() {
 
+                                       }
 
-                        //API zwraca id uzytkownika na ktorego sie zalogowalismy(id>0), jesli zwroci <0 to logowanie nieudane
-                        if(answer > 0){
-                            Intent intent = new Intent(MainActivity.this, LoggedActivity.class);
-                            startActivity(intent);
-                        }else if(answer == -1){
-                            Toast.makeText(getApplicationContext(), "Wrong username!", Toast.LENGTH_SHORT).show();
-                        }else if(answer == -2){
-                            Toast.makeText(getApplicationContext(), "Wrong password", Toast.LENGTH_SHORT).show();
-                        }
-                    }
+                                       @Override
+                                       public void onError(Throwable e) {
 
-                    @Override
-                    public void onFailure(Call<Integer> call, Throwable t) {
+                                       }
 
-                        Toast.makeText(getApplicationContext(), "ERROR", Toast.LENGTH_SHORT).show();
+                                       @Override
+                                       public void onNext(Integer answer) {
+                                            //API zwraca id uzytkownika na ktorego sie zalogowalismy(id>0), jesli zwroci <0 to logowanie nieudane
+                                            if(answer > 0){
 
-                    }
-                });
+                                            //SharedPreferences - przechowywanie userID otrzymanego z api
+                                            SharedPreferences.Editor editor = userId.edit();
+                                            editor.putInt("id", answer);
+                                            editor.commit();
 
-            }
+                                            Intent intent = new Intent(MainActivity.this, LoggedActivity.class);
+                                                startActivity(intent);
+                                            }else if(answer == -1){
+                                                Toast.makeText(getApplicationContext(), "Wrong username!", Toast.LENGTH_SHORT).show();
+                                            }else if(answer == -2){
+                                                Toast.makeText(getApplicationContext(), "Wrong password", Toast.LENGTH_SHORT).show();
+                                            }
+                              }
+                          });
+                     }
         });
 
         ButtonRegister = (Button) findViewById(R.id.buttonRegister);
