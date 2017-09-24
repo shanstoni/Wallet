@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.shan.wallet.Database.UserDatabaseHelper;
 import com.example.shan.wallet.Models.LoginModelClass;
 import com.example.shan.wallet.Models.UserModelClass;
 import com.example.shan.wallet.data.model.REST.ApiUtils;
@@ -26,23 +27,26 @@ import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button ButtonLogin;
-    Button ButtonRegister;
+   // Button ButtonLogin;
+    //Button ButtonRegister;
 
     SharedPreferences userId = null;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
+
+
         final EditText nickname  = (EditText) findViewById(R.id.nicknameEditText);
         final EditText password = (EditText) findViewById(R.id.passwordEditText);
 
         userId = PreferenceManager.getDefaultSharedPreferences(this);
 
-        ButtonLogin = (Button) findViewById(R.id.buttonLogin);
+        final Button ButtonLogin = (Button) findViewById(R.id.buttonLogin);
         ButtonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                      }
         });
 
-        ButtonRegister = (Button) findViewById(R.id.buttonRegister);
+        final Button ButtonRegister = (Button) findViewById(R.id.buttonRegister);
         ButtonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

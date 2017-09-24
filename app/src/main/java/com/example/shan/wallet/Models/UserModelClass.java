@@ -34,6 +34,17 @@ public class UserModelClass {
     @Expose
     private Object roles;
 
+    public UserModelClass(String username, String name, String surname, String password, Boolean gender, String email) {
+        this.id = 3;
+        this.username = username;
+        this.name = name;
+        this.surname = surname;
+        this.password = password;
+        this.gender = gender;
+        this.email = email;
+        this.roles = null;
+    }
+
     public Integer getId() {
         return id;
     }
