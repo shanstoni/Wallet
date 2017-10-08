@@ -3,57 +3,21 @@
 
     <item
         is-multidex="true"
-        jar="/Users/shan/Desktop/Java/PetrolManagment/Wallet/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="ae0f065783acfc1a0b7b2e42eea257cfcbcfcd5a">
-        <dex dex="/Users/shan/Desktop/Java/PetrolManagment/Wallet/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_040bab250d91f3dc6245e7c341d92b6a3f41408a/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/shan/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.8.0/5a11f020cce2d11eb71ba916700600e18c4547e7/okhttp-3.8.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="5a11f020cce2d11eb71ba916700600e18c4547e7">
-        <dex dex="/Users/shan/Desktop/Java/PetrolManagment/Wallet/app/build/intermediates/transforms/dex/debug/folders/1000/10/okhttp-3.8.0_8ac50e9cc051d18fec1561f3b9b3d49c0fe059c9/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="/Users/shan/Desktop/Java/PetrolManagment/Wallet/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
         jumboMode="true"
         optimize="true"
-        revision="25.0.2"
-        sha1="510aa6efc159983dfbffa676a0dae37568c0a46f">
+        revision="26.0.1"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
         <dex dex="/Users/shan/Desktop/Java/PetrolManagment/Wallet/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_12204336a3e49114b9ad065257d61c20ea22fb17/classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="/Users/shan/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.3.0/bcacde6a8ccedcc56c127403d26b76072fe6214d/retrofit-2.3.0.jar"
+        jar="/Users/shan/Desktop/Java/PetrolManagment/Wallet/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
-        revision="25.0.2"
-        sha1="bcacde6a8ccedcc56c127403d26b76072fe6214d">
-        <dex dex="/Users/shan/Desktop/Java/PetrolManagment/Wallet/app/build/intermediates/transforms/dex/debug/folders/1000/10/retrofit-2.3.0_b563d858a570eb14479663d55dd0b6fd036594ff/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/shan/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="a9283170b7305c8d92d25aff02a6ab7e45d06cbe">
-        <dex dex="/Users/shan/Desktop/Java/PetrolManagment/Wallet/app/build/intermediates/transforms/dex/debug/folders/1000/10/okio-1.13.0_dccef59104aa729a1f94eb7a451f3c4c5b7a69fb/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/shan/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/converter-scalars/2.3.0/1eaa5762cb25c31b1905e2bfdfef70a2e0495ea6/converter-scalars-2.3.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="1eaa5762cb25c31b1905e2bfdfef70a2e0495ea6">
-        <dex dex="/Users/shan/Desktop/Java/PetrolManagment/Wallet/app/build/intermediates/transforms/dex/debug/folders/1000/10/converter-scalars-2.3.0_b730cc4e9dacb484f8344bc5fe66f00dfaec2da4/classes.dex" />
+        revision="26.0.1"
+        sha1="d6f9ae81b264e273db3ffdf50764045dc3f08a03">
+        <dex dex="/Users/shan/Desktop/Java/PetrolManagment/Wallet/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_040bab250d91f3dc6245e7c341d92b6a3f41408a/classes.dex" />
     </item>
 
 </items>

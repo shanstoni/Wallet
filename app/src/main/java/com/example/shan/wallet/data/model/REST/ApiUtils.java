@@ -6,9 +6,9 @@ package com.example.shan.wallet.data.model.REST;
 
 public class ApiUtils {
 
-    public static final String BASE_URL = "http://www.dev.pl.hostingasp.pl/api/";
+    private static final String BASE_URL = "http://www.dev.pl.hostingasp.pl/api/";
 
-    public static iRetrofitClient getSOService() {
-        return RetrofitClient.getClient(BASE_URL).create(iRetrofitClient.class);
+    public static IRetrofitClient getSOService() {
+        return RetrofitClient.getClient(BASE_URL).create(IRetrofitClient.class);
     }
 }

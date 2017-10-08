@@ -5,27 +5,24 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.shan.wallet.Database.UserDatabaseHelper;
-import com.example.shan.wallet.Models.LoginModelClass;
-import com.example.shan.wallet.Models.UserModelClass;
+import com.example.shan.wallet.Models.Login;
 import com.example.shan.wallet.data.model.REST.ApiUtils;
-import com.example.shan.wallet.data.model.REST.iRetrofitClient;
+import com.example.shan.wallet.data.model.REST.IRetrofitClient;
+import com.example.shan.wallet.data.model.REST.RetrofitRequest;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
    // Button ButtonLogin;
     //Button ButtonRegister;
@@ -37,58 +34,54 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
-
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
+        getMenuInflater();
 
         final EditText nickname  = (EditText) findViewById(R.id.nicknameEditText);
         final EditText password = (EditText) findViewById(R.id.passwordEditText);
 
+
         userId = PreferenceManager.getDefaultSharedPreferences(this);
 
-        final Button ButtonLogin = (Button) findViewById(R.id.buttonLogin);
-        ButtonLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            final Button ButtonLogin = (Button) findViewById(R.id.buttonLogin);
+            ButtonLogin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                iRetrofitClient api = ApiUtils.getSOService();
+                    final String StrNickname = nickname.getText().toString();
+                    final String StrPassword = password.getText().toString();
 
-                LoginModelClass user = new LoginModelClass(nickname.getText().toString(),password.getText().toString());
+                    if((TextUtils.isEmpty(StrNickname)) || (TextUtils.isEmpty(StrPassword))) {
+                        if(TextUtils.isEmpty(StrNickname)) {
+                            nickname.setError("This field cannot be empty");
+
+                        }
+                        if(TextUtils.isEmpty(StrPassword)) {
+                            password.setError("This field cannot be empty");
+                        }
+                       // return;
+                    }else{
 
 
-                final Subscription id = api.logIn(user).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Subscriber<Integer>() {
-                                       @Override
-                                       public void onCompleted() {
 
-                                       }
+                        RetrofitRequest retrofitRequest = new RetrofitRequest();
+                        retrofitRequest.getUserIdToSharedPref(StrNickname,StrPassword);
 
-                                       @Override
-                                       public void onError(Throwable e) {
+                        userId = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+                        int currentUserId = userId.getInt("id",-1);
 
-                                       }
+                        if (currentUserId > 0) {
+                            Intent intent = new Intent(MainActivity.this, LoggedActivity.class);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Wrong credentials", Toast.LENGTH_SHORT).show();
+                        }
 
-                                       @Override
-                                       public void onNext(Integer answer) {
-                                            //API zwraca id uzytkownika na ktorego sie zalogowalismy(id>0), jesli zwroci <0 to logowanie nieudane
-                                            if(answer > 0){
-
-                                            //SharedPreferences - przechowywanie userID otrzymanego z api
-                                            SharedPreferences.Editor editor = userId.edit();
-                                            editor.putInt("id", answer);
-                                            editor.commit();
-
-                                            Intent intent = new Intent(MainActivity.this, LoggedActivity.class);
-                                                startActivity(intent);
-                                            }else if(answer == -1){
-                                                Toast.makeText(getApplicationContext(), "Wrong username!", Toast.LENGTH_SHORT).show();
-                                            }else if(answer == -2){
-                                                Toast.makeText(getApplicationContext(), "Wrong password", Toast.LENGTH_SHORT).show();
-                                            }
-                              }
-                          });
-                     }
-        });
+                }
+            }
+          }
+        );
 
         final Button ButtonRegister = (Button) findViewById(R.id.buttonRegister);
         ButtonRegister.setOnClickListener(new View.OnClickListener() {

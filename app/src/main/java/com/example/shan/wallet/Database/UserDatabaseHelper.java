@@ -5,7 +5,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.shan.wallet.Models.UserModelClass;
+import com.example.shan.wallet.Models.User;
 
 /**
  * Created by shan on 04.09.2017.
@@ -24,12 +24,9 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_7 = "EMAIL";
     public static final String COLUMN_8 = "ROLES";
 
-
-
     public UserDatabaseHelper(Context context) {
         //super(context, DATABASE_NAME, factory, version);
         super(context, DATABASE_NAME, null, 1);
-
     }
 
     @Override
@@ -44,10 +41,9 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
 
         db.execSQL("DROP TABLE IF EXISTS" + TABLE_NAME);
         onCreate(db);
-
     }
 
-    public boolean RegisterUser(UserModelClass userModelClass){
+    public boolean RegisterUser(User userModelClass){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_2,userModelClass.getUsername());

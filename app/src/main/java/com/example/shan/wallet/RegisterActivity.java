@@ -2,19 +2,11 @@ package com.example.shan.wallet;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.Toast;
-
-import com.example.shan.wallet.Database.UserDatabaseHelper;
-import com.example.shan.wallet.Models.UserModelClass;
 
 public class RegisterActivity extends AppCompatActivity {
 
 //    UserDatabaseHelper myDb;
-//    UserModelClass user = new UserModelClass;
+//    User user = new User;
 //
 //
 //    EditText editUsername;
@@ -53,8 +45,6 @@ public class RegisterActivity extends AppCompatActivity {
 //        user.setGender(true);
 //        user.setEmail(editEmail.getText().toString());
 
-
-
     }
 
 //      PRZYCISK REGISTER POWINIEN BRAC DANE Z EDITTEXT'ÓW I TWORZYC NOWEGO USERA W LOKALNEJ BAZIE
@@ -71,7 +61,6 @@ public class RegisterActivity extends AppCompatActivity {
 //                            Toast.makeText(getApplicationContext(),"FAIL", Toast.LENGTH_SHORT);
 //
 //                    }
-//
 //                }
 //        );
 //    }
