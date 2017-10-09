@@ -2,8 +2,11 @@ package com.example.shan.wallet;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 
-public class RegisterActivity extends AppCompatActivity {
+import com.example.shan.wallet.Misc.BaseActivity;
+
+public class RegisterActivity extends BaseActivity {
 
 //    UserDatabaseHelper myDb;
 //    User user = new User;
@@ -22,7 +25,14 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        //setContentView(R.layout.activity_register);
+
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.top_toolbar);
+//        setSupportActionBar(toolbar);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayShowHomeEnabled(true);
+//        getSupportActionBar().setTitle("Register");
+
 //
         // ODWOLANIE DO KLASY UDPATUJACEJ BAE DANYCH
 //        myDb = new UserDatabaseHelper(this);
@@ -66,5 +76,9 @@ public class RegisterActivity extends AppCompatActivity {
 //    }
 
 
+    @Override
+    protected int getLayoutResource() {
+        return R.layout.activity_register;
+    }
 }
 

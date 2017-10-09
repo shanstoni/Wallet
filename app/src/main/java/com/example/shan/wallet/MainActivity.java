@@ -7,36 +7,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.shan.wallet.Models.Login;
-import com.example.shan.wallet.data.model.REST.ApiUtils;
-import com.example.shan.wallet.data.model.REST.IRetrofitClient;
+import com.example.shan.wallet.Misc.BaseActivity;
 import com.example.shan.wallet.data.model.REST.RetrofitRequest;
 
-import rx.Subscriber;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
-
-public class MainActivity extends AppCompatActivity{
-
-   // Button ButtonLogin;
-    //Button ButtonRegister;
+public class MainActivity extends BaseActivity{
 
     SharedPreferences userId = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        //setContentView(R.layout.activity_main);
 
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(myToolbar);
-        getMenuInflater();
 
         final EditText nickname  = (EditText) findViewById(R.id.nicknameEditText);
         final EditText password = (EditText) findViewById(R.id.passwordEditText);
@@ -92,5 +80,10 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
+    }
+
+    @Override
+    protected int getLayoutResource() {
+        return R.layout.activity_main;
     }
 }

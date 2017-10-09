@@ -1,11 +1,16 @@
 package com.example.shan.wallet;
 
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.shan.wallet.Misc.BaseActivity;
 import com.example.shan.wallet.Models.User;
 import com.example.shan.wallet.data.model.REST.ApiUtils;
 import com.example.shan.wallet.data.model.REST.IRetrofitClient;
@@ -14,14 +19,16 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class LoggedActivity extends AppCompatActivity {
+public class LoggedActivity extends BaseActivity{
 
     SharedPreferences userId = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_logged);
+        //setContentView(R.layout.activity_logged);
+
+
 
         userId = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -53,5 +60,10 @@ public class LoggedActivity extends AppCompatActivity {
 
                     }
                 });
+    }
+
+    @Override
+    protected int getLayoutResource() {
+        return R.layout.activity_logged;
     }
 }
